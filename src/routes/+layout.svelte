@@ -7,8 +7,8 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<nav>
-	<a href="/">home</a>
-	<a href="/initiative-tracker">initiative tracker</a>
+<nav class="navbar bg-base-100 shadow-sm">
+	<a class="btn btn-ghost text-xl" href="/">Home</a>
+	<a class="btn btn-ghost text-xl" href="/initiative-tracker">Initiative tracker</a>
 </nav>
 {@render children()}
