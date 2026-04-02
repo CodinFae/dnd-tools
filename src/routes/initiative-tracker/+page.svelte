@@ -27,7 +27,7 @@
 			<button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button>
 		</li>
 	{:else}
-		<li class="list-row">No actors added.</li>
+		<li class="list-row">No characters added.</li>
 	{/each}
 	<li class="list-row">
 		<form onsubmit={handleSubmit} class="flex flex-row gap-2">
