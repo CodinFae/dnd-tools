@@ -1,14 +1,12 @@
 <script lang="ts">
-	import type { character } from "../../models/characters";
+	import type { character } from "./character.model";
+    import {characterStore, removeCharacter } from "./character.store.svelte"
 
-    let characters = $state<character[]>([])
 
-    const removeCharacter = (name : string) => characters = characters.filter(a => a.name != name)
     const addCharacter = (event : SubmitEvent & {currentTarget: HTMLFormElement}) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget);
-        console.log(formData)
-        characters.push({
+        characterStore.push({
             name: formData.get("name"),
             hp: formData.get("hp"),
             initiativeModifier: formData.get("initiative")
@@ -18,8 +16,8 @@
 
 <h1 class="text-4xl">Initiative Tracker</h1>
 <ul class="list">
-    {#each characters as actor }
-        <li class="list-row">{actor.name} - Initiative: {actor.initiativeModifier} HP: {actor.hp}</li>
+    {#each characterStore as actor }
+        <li class="list-row">{actor.name} - A: {actor.initiativeModifier} HP: {actor.hp} <button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button></li>
         {:else}
             <li class="list-row">No actors added.</li>
         {/each}
@@ -34,5 +32,5 @@
 </ul>
 <div class="join">
   <button class="btn join-item">Add</button>
-  <button class="btn join-item btn-accent">Start</button>
+  <a class="btn join-item btn-accent" href="/initiative-tracker/start">Start</a>
 </div>
