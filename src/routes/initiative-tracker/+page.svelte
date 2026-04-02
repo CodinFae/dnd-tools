@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { characterStore, removeCharacter, addCharacter } from './character.store.svelte';
 
 	const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
@@ -16,6 +17,12 @@
 			initiativeModifier: parseInt(formData.get('initiative')?.toString() || '0')
 		});
 		event.currentTarget.reset();
+	};
+
+	const handleStartFight = async () => {
+		if (characterStore.length >= 2) {
+			await goto('/initiative-tracker/fight');
+		}
 	};
 </script>
 
@@ -49,5 +56,8 @@
 		class="btn join-item btn-warning"
 		onclick={() => characterStore.splice(0, characterStore.length)}>Reset</button
 	>
-	<a class="btn join-item btn-primary" href="/initiative-tracker/fight">Start</a>
+	<button
+		class="btn join-item btn-primary"
+		disabled={characterStore.length < 2}
+		onclick={handleStartFight}>Start</button>
 </div>

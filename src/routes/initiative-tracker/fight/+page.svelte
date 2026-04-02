@@ -40,7 +40,7 @@
 
 <ul>
 	{#each turnChar as actor, index}
-		<li class={`list-row ${currentPlayerIndex == index ? 'bg-accent' : ''}`}>
+		<li class={`list-row ${currentPlayerIndex == index ? 'bg-primary' : ''}`}>
 			{actor.name} - Initiative: {actor.initiative} ({actor.rolled} + {actor.initiativeModifier})
 			HP: {actor.currentHp}/{actor.hp}
 		</li>
