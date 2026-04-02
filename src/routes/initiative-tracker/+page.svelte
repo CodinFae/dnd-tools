@@ -1,44 +1,53 @@
 <script lang="ts">
-	import type { character } from "./character.model";
-    import {characterStore, removeCharacter, addCharacter } from "./character.store.svelte"
+	import { characterStore, removeCharacter, addCharacter } from './character.store.svelte';
 
-
-    const handleSubmit = (event : SubmitEvent & {currentTarget: HTMLFormElement}) => {
-        if (!event.currentTarget.checkValidity()) {
+	const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
+		if (!event.currentTarget.checkValidity()) {
 			event.preventDefault();
 			event.currentTarget.reportValidity();
 			return;
 		}
-        event.preventDefault()
+		event.preventDefault();
 
-        const formData = new FormData(event.currentTarget);
-        addCharacter({
-            name: formData.get("name")?.toString() ?? "Unnamed",
-            hp: parseInt(formData.get("hp")?.toString() || "1"),
-            initiativeModifier: parseInt(formData.get("initiative")?.toString() || "0")
-        })
-        event.currentTarget.reset()
-    }
+		const formData = new FormData(event.currentTarget);
+		addCharacter({
+			name: formData.get('name')?.toString() ?? 'Unnamed',
+			hp: parseInt(formData.get('hp')?.toString() || '1'),
+			initiativeModifier: parseInt(formData.get('initiative')?.toString() || '0')
+		});
+		event.currentTarget.reset();
+	};
 </script>
 
 <h1 class="text-4xl">Initiative Tracker</h1>
 <ul class="list">
-    {#each characterStore as actor }
-        <li class="list-row">
-            {actor.name} - Initiative: {actor.initiativeModifier} HP: {actor.hp} <button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button></li>
-        {:else}
-            <li class="list-row">No actors added.</li>
-        {/each}
-    <li class="list-row">
-        <form onsubmit={handleSubmit} class="flex flex-row gap-2">
-            <input type="text" required class="input" placeholder="Name" name="name">
-            <input type="number" required class="input" placeholder="Initiative modifier" name="initiative">
-            <input type="number" min="1" required class="input" placeholder="HP" name="hp">
-            <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
-    </li>
+	{#each characterStore as actor}
+		<li class="list-row">
+			{actor.name} - Initiative: {actor.initiativeModifier} HP: {actor.hp}
+			<button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button>
+		</li>
+	{:else}
+		<li class="list-row">No actors added.</li>
+	{/each}
+	<li class="list-row">
+		<form onsubmit={handleSubmit} class="flex flex-row gap-2">
+			<input type="text" required class="input" placeholder="Name" name="name" />
+			<input
+				type="number"
+				required
+				class="input"
+				placeholder="Initiative modifier"
+				name="initiative"
+			/>
+			<input type="number" min="1" required class="input" placeholder="HP" name="hp" />
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</form>
+	</li>
 </ul>
 <div class="join">
-  <button class="btn join-item btn-warning"  onclick={() => characterStore.splice(0, characterStore.length)}>Reset</button>
-  <a class="btn join-item btn-primary" href="/initiative-tracker/fight">Start</a>
+	<button
+		class="btn join-item btn-warning"
+		onclick={() => characterStore.splice(0, characterStore.length)}>Reset</button
+	>
+	<a class="btn join-item btn-primary" href="/initiative-tracker/fight">Start</a>
 </div>
