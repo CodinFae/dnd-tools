@@ -4,3 +4,8 @@ export interface character {
     hp : number,
     
 }
+
+    export interface turnCharacter extends character {
+        initiative: number
+        currentHp: number
+    }

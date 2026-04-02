@@ -8,3 +8,7 @@ export const removeCharacter = (name: string) => {
     characterStore.length = 0
     characterStore.push(...filtered)
 }
+
+export const addCharacter = (character: character) => {
+    characterStore.push(character)
+}
