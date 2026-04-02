@@ -2,11 +2,16 @@
     import { characterStore } from "../character.store.svelte";
 
     const turnChar = 
-         characterStore.map((char) => ({
+         characterStore.map((char) =>{
+            const rolled = Math.floor(Math.random() * 20) + 1;
+            return (
+            {
             ...char,
-            initiative: char.initiativeModifier + Math.floor(Math.random() * 20) + 1,
+            rolled: rolled,
+            initiative: char.initiativeModifier + rolled,
             currentHp: char.hp
-        })).sort((a, b) => b.initiative - a.initiative)
+        })}
+        ).sort((a, b) => b.initiative - a.initiative)
 
     let currentPlayerIndex = $state(0);
     let turnNumber = $state(1);
@@ -36,7 +41,7 @@
 
 <ul>
     {#each turnChar as actor, index }
-        <li class="{`list-row ${currentPlayerIndex == index ? 'bg-accent' : ''}`}"  >{actor.name} - Initiative: {actor.initiative} HP: {actor.currentHp}/{actor.hp}</li>
+        <li class="{`list-row ${currentPlayerIndex == index ? 'bg-accent' : ''}`}"  >{actor.name} - Initiative: {actor.initiative} ({actor.rolled} + {actor.initiativeModifier}) HP: {actor.currentHp}/{actor.hp}</li>
         {:else}
             <li class="list-row">No actors added.</li>
         {/each}
