@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import HeartIcon from '$lib/components/HeartIcon.svelte';
+	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
 	import { characterStore, removeCharacter, addCharacter } from './character.store.svelte';
 
 	const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
@@ -29,8 +31,10 @@
 <h1 class="text-4xl">Initiative Tracker</h1>
 <ul class="list">
 	{#each characterStore as actor}
-		<li class="list-row">
-			{actor.name} - Initiative: {actor.initiativeModifier} HP: {actor.hp}
+		<li class="list-row flex flex-row gap-4 items-center">
+			<span>{actor.name}</span>
+			<InitiativeIcon value={actor.initiativeModifier}></InitiativeIcon>
+			<HeartIcon value={actor.hp}></HeartIcon>
 			<button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button>
 		</li>
 	{:else}
@@ -45,8 +49,9 @@
 				class="input"
 				placeholder="Initiative modifier"
 				name="initiative"
+				min="-99" max="99"
 			/>
-			<input type="number" min="1" required class="input" placeholder="HP" name="hp" />
+			<input type="number" min="1" max="999" required class="input" placeholder="HP" name="hp" />
 			<button class="btn btn-primary" type="submit">Submit</button>
 		</form>
 	</li>

@@ -1,2 +1,7 @@
-<h1 class="text-4xl">Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<h1 class="text-4xl">Dungeon and Dragons tools</h1>
+<p>Welcome to the Dungeon and Dragons tools!</p>
+<ul>
+    <li>
+        <a class="btn btn-ghost" href="/initiative-tracker">Initiative tracker</a>
+    </li>
+</ul>
