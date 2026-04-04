@@ -32,7 +32,7 @@
 <ul class="list">
 	{#each characterStore as actor}
 		<li class="list-row flex flex-row gap-4 items-center">
-			<span>{actor.name}</span>
+			<span class="p-2 rounded bg-primary text-primary-content">{actor.name}</span>
 			<InitiativeIcon value={actor.initiativeModifier}></InitiativeIcon>
 			<HeartIcon value={actor.hp}></HeartIcon>
 			<button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button>
