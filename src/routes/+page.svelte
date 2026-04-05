@@ -3,5 +3,6 @@
 <ul>
     <li>
         <a class="btn btn-ghost" href="/initiative-tracker">Initiative tracker</a>
+        <a class="btn btn-ghost" href="/character-parser">Character parser</a>
     </li>
 </ul>
