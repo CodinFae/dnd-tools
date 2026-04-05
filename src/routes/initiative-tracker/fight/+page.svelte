@@ -1,4 +1,6 @@
 <script>
+	import HeartIcon from '$lib/components/HeartIcon.svelte';
+	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
 	import { characterStore } from '../character.store.svelte';
 
 	const turnChar = characterStore
@@ -40,9 +42,10 @@
 
 <ul>
 	{#each turnChar as actor, index}
-		<li class={`list-row ${currentPlayerIndex == index ? 'bg-primary' : ''}`}>
-			{actor.name} - Initiative: {actor.initiative} ({actor.rolled} + {actor.initiativeModifier})
-			HP: {actor.currentHp}/{actor.hp}
+		<li class={`list-row flex flex-row gap-2 p-2 rounded items-center ${currentPlayerIndex == index ? 'bg-yellow-500 border-2 border-yellow-300' : ''}`}>
+			<span class="p-2 rounded bg-primary text-primary-content">{actor.name}</span>
+			<InitiativeIcon modifier={actor.initiativeModifier} rolled={actor.rolled}></InitiativeIcon>
+			<HeartIcon currentHP={actor.currentHp} HP={actor.hp}></HeartIcon>
 		</li>
 	{:else}
 		<li class="list-row">No actors added.</li>

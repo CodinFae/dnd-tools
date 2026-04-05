@@ -31,10 +31,10 @@
 <h1 class="text-4xl">Initiative Tracker</h1>
 <ul class="list">
 	{#each characterStore as actor}
-		<li class="list-row flex flex-row gap-4 items-center">
+		<li class="list-row flex flex-row gap-2 items-center">
 			<span class="p-2 rounded bg-primary text-primary-content">{actor.name}</span>
-			<InitiativeIcon value={actor.initiativeModifier}></InitiativeIcon>
-			<HeartIcon value={actor.hp}></HeartIcon>
+			<InitiativeIcon modifier={actor.initiativeModifier}></InitiativeIcon>
+			<HeartIcon HP={actor.hp}></HeartIcon>
 			<button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button>
 		</li>
 	{:else}
@@ -42,16 +42,16 @@
 	{/each}
 	<li class="list-row">
 		<form onsubmit={handleSubmit} class="flex flex-row gap-2">
-			<input type="text" required class="input" placeholder="Name" name="name" />
+			<input type="text" required class="input border-primary" placeholder="Name" name="name" />
 			<input
 				type="number"
 				required
-				class="input"
-				placeholder="Initiative modifier"
+				class="input border-blue-500"
+				placeholder="Initiative"
 				name="initiative"
 				min="-99" max="99"
 			/>
-			<input type="number" min="1" max="999" required class="input" placeholder="HP" name="hp" />
+			<input type="number" min="1" max="999" required class="input border-red-500" placeholder="HP" name="hp" />
 			<button class="btn btn-primary" type="submit">Submit</button>
 		</form>
 	</li>
