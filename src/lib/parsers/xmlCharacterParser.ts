@@ -27,9 +27,9 @@ function parseCharacterElement(element: Element): ParsedCharacter {
 		return el?.textContent?.trim() || defaultValue || '';
 	};
 
-	const getNumber = (tag: string): number | undefined => {
+	const getNumber = (tag: string): number => {
 		const val = getText(tag);
-		return val ? parseInt(val, 10) : undefined;
+		return parseInt(val, 10);
 	};
 
 	const getArrayOfTag = (tag: string): string[] => {
@@ -44,13 +44,15 @@ function parseCharacterElement(element: Element): ParsedCharacter {
 
 	const actions = parseActions(element);
 
+	const hpString = getText('hp'); 
 	const character: ParsedCharacter = {
 		label: getText('label'),
 		class: getText('name').replaceAll("[2024]", "").trim(),
 		level: getNumber('level'),
 		size: getText('size') || undefined,
 		ac: getText('ac') || undefined,
-		hp: getText('hp') || undefined,
+		hp: parseInt(hpString.split('/')[1]),
+		currentHp: parseInt(hpString.split('/')[0]),
 		speed: getText('speed') || undefined,
 		init: getNumber('init'),
 		stats: {

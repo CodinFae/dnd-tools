@@ -4,9 +4,10 @@ export interface ParsedCharacter {
 	level?: number;
 	size?: string;
 	ac?: string;
-	hp?: string;
+	hp: number;
+	currentHp: number;
 	speed?: string;
-	init?: number;
+	init: number;
 	stats: {
 		str?: number;
 		dex?: number;

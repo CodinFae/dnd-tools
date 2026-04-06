@@ -2,6 +2,8 @@
 	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
 	import type { ParsedCharacter } from '../../models/character';
 	import CharacterDisplay from './character-display.svelte';
+	import { addCharacter } from '../initiative-tracker/character.store.svelte';
+	import type { character } from '../initiative-tracker/character.model';
 
 	let characters: ParsedCharacter[] = $state([]);
 	let error: string | null = $state(null);
@@ -45,6 +47,16 @@
 			loading = false;
 			target.value = '';
 		}
+	}
+
+	const saveToStore= () =>{
+		characters.forEach(char => {
+			addCharacter({
+				name: char.label,
+				initiativeModifier: char.init,
+				hp: char.hp
+			} satisfies character)
+		});
 	}
 </script>
 
@@ -107,12 +119,13 @@
 				{#if characters.length > 0}
 				<div class="mt-4 p-3 bg-base-100 rounded">
 					<p class="font-semibold">{characters.length} character(s) loaded</p>
-					<ul class="list-inside mt-2">
+					<ul class="list-inside mt-2 flex flex-col gap-2">
 						{#each characters as char, idx}
 							<li>
 							<CharacterDisplay character={char}></CharacterDisplay>
 							</li>
 						{/each}
+						<button class="btn" onclick={saveToStore}>Save</button>
 					</ul>
 				</div>
 			{/if}
