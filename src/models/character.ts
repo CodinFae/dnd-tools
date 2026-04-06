@@ -1,6 +1,6 @@
 export interface ParsedCharacter {
 	label: string;
-	name: string;
+	class: string;
 	level?: number;
 	size?: string;
 	ac?: string;

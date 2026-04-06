@@ -46,7 +46,7 @@ function parseCharacterElement(element: Element): ParsedCharacter {
 
 	const character: ParsedCharacter = {
 		label: getText('label'),
-		name: getText('name'),
+		class: getText('name').replaceAll("[2024]", "").trim(),
 		level: getNumber('level'),
 		size: getText('size') || undefined,
 		ac: getText('ac') || undefined,
@@ -95,7 +95,7 @@ export function validateCharacter(character: ParsedCharacter): string[] {
 	if (!character.label) {
 		errors.push('Character label is required');
 	}
-	if (!character.name) {
+	if (!character.class) {
 		errors.push('Character name is required');
 	}
 
