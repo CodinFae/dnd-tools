@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
 	import type { ParsedCharacter } from '../../models/character';
+	import CharacterDisplay from './character-display.svelte';
 
 	let characters: ParsedCharacter[] = $state([]);
 	let error: string | null = $state(null);
@@ -47,10 +48,10 @@
 	}
 </script>
 
-<div class="max-w-2xl mx-auto">
+<div class=" mx-auto">
 	<h1 class="text-4xl font-bold mb-6">Character Parser</h1>
 
-	<div class="card bg-base-200 shadow-xl">
+	<div class="max-w-2xl card bg-base-200 shadow-xl">
 		<div class="card-body">
 			<h2 class="card-title">Import Characters</h2>
 			<p class="text-sm opacity-75 mb-4">
@@ -100,19 +101,19 @@
 					</div>
 				</div>
 			{/if}
+		</div>
+	</div>
 
-			{#if characters.length > 0}
+				{#if characters.length > 0}
 				<div class="mt-4 p-3 bg-base-100 rounded">
 					<p class="font-semibold">{characters.length} character(s) loaded</p>
-					<ul class="list-disc list-inside mt-2">
+					<ul class="list-inside mt-2">
 						{#each characters as char, idx}
 							<li>
-								<strong>{char.label}</strong> ({char.class}) {char.init} str: {char.stats.str} dex: {char.stats.dex} con: {char.stats.con} int: {char.stats.int} wis: {char.stats.wis} cha: {char.stats.cha}
+							<CharacterDisplay character={char}></CharacterDisplay>
 							</li>
 						{/each}
 					</ul>
 				</div>
 			{/if}
-		</div>
-	</div>
 </div>
