@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { ParsedCharacter } from '../../models/character';
+	import type { ParsedCharacter } from "../initiative-tracker/character.model";
+
 
 	interface Props {
 		character: ParsedCharacter;
@@ -52,16 +53,16 @@
 	<!-- Row 1: Name + Class + Init + AC + HP + Movement -->
 	<div class="flex flex-wrap items-center gap-2">
 		<div class="badge badge-lg badge-primary">
-			{character.label}
+			{character.name}
 		</div>
 
 		<div class="badge badge-lg">
 			{character.class}
 		</div>
 
-		{#if character.init !== undefined}
+		{#if character.initiativeModifier !== undefined}
 			<div class="badge badge-sm badge-success" title="Initiative">
-				Init {formatModifier(character.init)}
+				Init {formatModifier(character.initiativeModifier)}
 			</div>
 		{/if}
 

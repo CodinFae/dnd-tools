@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
-	import type { ParsedCharacter } from '../../models/character';
 	import CharacterDisplay from './character-display.svelte';
 	import { addCharacter } from '../initiative-tracker/character.store.svelte';
-	import type { character } from '../initiative-tracker/character.model';
+	import type { ParsedCharacter } from '../initiative-tracker/character.model';
 
 	let characters: ParsedCharacter[] = $state([]);
 	let error: string | null = $state(null);
@@ -51,11 +50,7 @@
 
 	const saveToStore= () =>{
 		characters.forEach(char => {
-			addCharacter({
-				name: char.label,
-				initiativeModifier: char.init,
-				hp: char.hp
-			} satisfies character)
+			addCharacter(char)
 		});
 	}
 </script>

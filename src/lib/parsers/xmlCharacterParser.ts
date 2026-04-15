@@ -1,4 +1,4 @@
-import type { ParsedCharacter } from '../../models/character';
+import type { ParsedCharacter } from "../../routes/initiative-tracker/character.model";
 
 export function parseXMLCharacter(xmlString: string): ParsedCharacter[] {
 	const parser = new DOMParser();
@@ -46,7 +46,7 @@ function parseCharacterElement(element: Element): ParsedCharacter {
 
 	const hpString = getText('hp'); 
 	const character: ParsedCharacter = {
-		label: getText('label'),
+		name: getText('label'),
 		class: getText('name').replaceAll("[2024]", "").trim(),
 		level: getNumber('level'),
 		size: getText('size') || undefined,
@@ -54,7 +54,7 @@ function parseCharacterElement(element: Element): ParsedCharacter {
 		hp: parseInt(hpString.split('/')[1]),
 		currentHp: parseInt(hpString.split('/')[0]),
 		speed: getText('speed') || undefined,
-		init: getNumber('init'),
+		initiativeModifier: getNumber('init'),
 		stats: {
 			str: getNumber('str'),
 			dex: getNumber('dex'),
@@ -94,7 +94,7 @@ function parseActions(element: Element): ParsedCharacter['actions'] {
 export function validateCharacter(character: ParsedCharacter): string[] {
 	const errors: string[] = [];
 
-	if (!character.label) {
+	if (!character.name) {
 		errors.push('Character label is required');
 	}
 	if (!character.class) {
