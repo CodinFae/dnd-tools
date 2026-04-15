@@ -45,7 +45,13 @@
 		<li class={`list-row flex flex-row gap-2 p-2 rounded items-center ${currentPlayerIndex == index ? 'bg-yellow-500 border-2 border-yellow-300' : ''}`}>
 			<span class="p-2 rounded bg-primary text-primary-content">{actor.name}</span>
 			<InitiativeIcon modifier={actor.initiativeModifier} rolled={actor.rolled}></InitiativeIcon>
-			<HeartIcon currentHP={actor.currentHp} HP={actor.hp}></HeartIcon>
+			<div class="indicator">
+				<div class="indicator-item indicator-top indicator-end">
+					<button class="btn btn-circle btn-xs">+</button>
+				</div>
+				<HeartIcon currentHP={actor.currentHp} HP={actor.hp}></HeartIcon>
+
+			</div>
 		</li>
 	{:else}
 		<li class="list-row">No actors added.</li>
