@@ -42,7 +42,7 @@ export const startFight = () => {
 	fightStore.currentTurn = 1;
 	fightStore.currentCharacterIndex = 0;
 	fightStore.turnSeconds = 0;
-	fightStore.phase = 'started'
+	fightStore.phase = 'started';
 };
 
 export const pauseFight = () => {
@@ -74,5 +74,5 @@ export const advanceCharacter = () => {
 	} else {
 		fightStore.currentCharacterIndex = newPlayerIndex;
 	}
-	fightStore.turnSeconds = 0
+	fightStore.turnSeconds = 0;
 };

@@ -1,14 +1,20 @@
 <script>
 	import HeartIcon from '$lib/components/HeartIcon.svelte';
 	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
-	import { advanceCharacter, fightStore, startFight } from '$lib/stores/fight.store.svelte';
+	import {
+		advanceCharacter,
+		fightStore,
+		pauseFight,
+		resumeFight,
+		startFight
+	} from '$lib/stores/fight.store.svelte';
 </script>
 
 {#if fightStore.phase === 'ready'}
 	<p>There is {fightStore.fighters.length} character(s) in the fight.</p>
 	<button class="btn btn-primary" onclick={startFight}>Start</button>
 {/if}
-{#if fightStore.phase === 'started'}
+{#if fightStore.phase === 'started' || fightStore.phase === 'paused'}
 	<p>Turn: {fightStore.currentTurn}</p>
 	<p>Turn Timer: {fightStore.turnSeconds}s</p>
 
@@ -31,5 +37,11 @@
 		{/each}
 	</ul>
 
-	<button class="btn" onclick={advanceCharacter}>Next character</button>
+	{#if fightStore.phase === 'paused'}
+		<button class="btn" onclick={resumeFight}>Resume</button>
+	{/if}
+	{#if fightStore.phase === 'started'}
+		<button class="btn" onclick={pauseFight}>Pause</button>
+		<button class="btn" onclick={advanceCharacter}>Next character</button>
+	{/if}
 {/if}
