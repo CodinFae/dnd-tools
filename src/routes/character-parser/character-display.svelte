@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ParsedCharacter } from "../initiative-tracker/character.model";
+	import type { ParsedCharacter } from "../../lib/models/character.model";
 
 
 	interface Props {

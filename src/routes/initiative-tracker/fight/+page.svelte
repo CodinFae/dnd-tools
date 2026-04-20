@@ -1,19 +1,8 @@
 <script>
 	import HeartIcon from '$lib/components/HeartIcon.svelte';
 	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
-	import { characterStore } from '../character.store.svelte';
-
-	const turnChar = characterStore
-		.map((char) => {
-			const rolled = Math.floor(Math.random() * 20) + 1;
-			return {
-				...char,
-				rolled: rolled,
-				initiative: char.initiativeModifier + rolled,
-				currentHp: char.hp
-			};
-		})
-		.sort((a, b) => b.initiative - a.initiative);
+	import { fightStore } from '$lib/stores/fight.store.svelte';
+	
 
 	let currentPlayerIndex = $state(0);
 	let turnNumber = $state(1);
@@ -21,7 +10,7 @@
 	const advanceCharacter = () => {
 		const newPlayerIndex = currentPlayerIndex + 1;
 
-		if (newPlayerIndex >= turnChar.length) {
+		if (newPlayerIndex >= fightStore.fighters.length) {
 			currentPlayerIndex = 0;
 			turnNumber++;
 		} else {
@@ -36,12 +25,12 @@
 	}, 1000);
 </script>
 
-<p>There is {characterStore.length} character(s) in the fight.</p>
+<p>There is {fightStore.fighters.length} character(s) in the fight.</p>
 <p>Turn: {turnNumber}</p>
 <p>Turn Timer: {turnTimer}s</p>
 
 <ul>
-	{#each turnChar as actor, index}
+	{#each fightStore.fighters as actor, index}
 		<li class={`list-row flex flex-row gap-2 p-2 rounded items-center ${currentPlayerIndex == index ? 'bg-yellow-500 border-2 border-yellow-300' : ''}`}>
 			<span class="p-2 rounded bg-primary text-primary-content">{actor.name}</span>
 			<InitiativeIcon modifier={actor.initiativeModifier} rolled={actor.rolled}></InitiativeIcon>

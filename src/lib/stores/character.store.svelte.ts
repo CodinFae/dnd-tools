@@ -1,4 +1,4 @@
-import type { character } from './character.model';
+import type { character } from '../models/character.model';
 
 export let characterStore = $state<character[]>([]);
 

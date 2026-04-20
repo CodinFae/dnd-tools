@@ -1,4 +1,4 @@
-import type { ParsedCharacter } from "../../routes/initiative-tracker/character.model";
+import type { ParsedCharacter } from "../models/character.model";
 
 export function parseXMLCharacter(xmlString: string): ParsedCharacter[] {
 	const parser = new DOMParser();

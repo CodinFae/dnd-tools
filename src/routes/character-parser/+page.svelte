@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
 	import CharacterDisplay from './character-display.svelte';
-	import { addCharacter } from '../initiative-tracker/character.store.svelte';
-	import type { ParsedCharacter } from '../initiative-tracker/character.model';
+	import { addCharacter } from '$lib/stores/character.store.svelte';
+	import type { ParsedCharacter } from '$lib/models/character.model';
 
 	let characters: ParsedCharacter[] = $state([]);
 	let error: string | null = $state(null);

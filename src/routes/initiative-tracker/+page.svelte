@@ -2,7 +2,8 @@
 	import { goto } from '$app/navigation';
 	import HeartIcon from '$lib/components/HeartIcon.svelte';
 	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
-	import { characterStore, removeCharacter, addCharacter } from './character.store.svelte';
+	import { characterStore, removeCharacter, addCharacter } from '$lib/stores/character.store.svelte';
+	import { setupFight } from '$lib/stores/fight.store.svelte';
 
 	const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
 		if (!event.currentTarget.checkValidity()) {
@@ -23,6 +24,7 @@
 
 	const handleStartFight = async () => {
 		if (characterStore.length >= 2) {
+			setupFight(characterStore)
 			await goto('/initiative-tracker/fight');
 		}
 	};

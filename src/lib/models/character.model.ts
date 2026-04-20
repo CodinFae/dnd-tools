@@ -7,6 +7,7 @@ export interface character {
 export interface turnCharacter extends character {
 	initiative: number;
 	currentHp: number;
+	rolled: number;
 }
 
 
