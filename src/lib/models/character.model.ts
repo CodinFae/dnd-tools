@@ -1,17 +1,16 @@
-export interface character {
+export interface Character {
 	name: string;
 	initiativeModifier: number;
 	hp: number;
 }
 
-export interface turnCharacter extends character {
+export interface Fighter extends Character {
 	initiative: number;
 	currentHp: number;
 	rolled: number;
 }
 
-
-export interface ParsedCharacter extends character {
+export interface PartyMember extends Character {
 	class: string;
 	level?: number;
 	size?: string;

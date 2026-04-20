@@ -2,7 +2,11 @@
 	import { goto } from '$app/navigation';
 	import HeartIcon from '$lib/components/HeartIcon.svelte';
 	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
-	import { characterStore, removeCharacter, addCharacter } from '$lib/stores/character.store.svelte';
+	import {
+		characterStore,
+		removeCharacter,
+		addCharacter
+	} from '$lib/stores/character.store.svelte';
 	import { setupFight } from '$lib/stores/fight.store.svelte';
 
 	const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
@@ -24,8 +28,8 @@
 
 	const handleStartFight = async () => {
 		if (characterStore.length >= 2) {
-			setupFight(characterStore)
-			await goto('/initiative-tracker/fight');
+			setupFight(characterStore);
+			await goto('/fight');
 		}
 	};
 </script>
@@ -33,8 +37,8 @@
 <h1 class="text-4xl">Initiative Tracker</h1>
 <ul class="list">
 	{#each characterStore as actor}
-		<li class="list-row flex flex-row gap-2 items-center">
-			<span class="p-2 rounded bg-primary text-primary-content">{actor.name}</span>
+		<li class="list-row flex flex-row items-center gap-2">
+			<span class="rounded bg-primary p-2 text-primary-content">{actor.name}</span>
 			<InitiativeIcon modifier={actor.initiativeModifier}></InitiativeIcon>
 			<HeartIcon HP={actor.hp}></HeartIcon>
 			<button class="btn" onclick={() => removeCharacter(actor.name)}>Remove</button>
@@ -51,9 +55,18 @@
 				class="input border-blue-500"
 				placeholder="Initiative"
 				name="initiative"
-				min="-99" max="99"
+				min="-99"
+				max="99"
 			/>
-			<input type="number" min="1" max="999" required class="input border-red-500" placeholder="HP" name="hp" />
+			<input
+				type="number"
+				min="1"
+				max="999"
+				required
+				class="input border-red-500"
+				placeholder="HP"
+				name="hp"
+			/>
 			<button class="btn btn-primary" type="submit">Submit</button>
 		</form>
 	</li>
@@ -66,5 +79,6 @@
 	<button
 		class="btn join-item btn-primary"
 		disabled={characterStore.length < 2}
-		onclick={handleStartFight}>Start</button>
+		onclick={handleStartFight}>Start</button
+	>
 </div>

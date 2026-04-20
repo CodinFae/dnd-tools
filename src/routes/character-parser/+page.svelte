@@ -2,9 +2,9 @@
 	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
 	import CharacterDisplay from './character-display.svelte';
 	import { addCharacter } from '$lib/stores/character.store.svelte';
-	import type { ParsedCharacter } from '$lib/models/character.model';
+	import type { PartyMember } from '$lib/models/character.model';
 
-	let characters: ParsedCharacter[] = $state([]);
+	let characters: PartyMember[] = $state([]);
 	let error: string | null = $state(null);
 	let loading = $state(false);
 
@@ -19,7 +19,7 @@
 		characters = [];
 
 		try {
-			const allCharacters: ParsedCharacter[] = [];
+			const allCharacters: PartyMember[] = [];
 
 			for (let i = 0; i < files.length; i++) {
 				const file = files[i];
@@ -48,22 +48,20 @@
 		}
 	}
 
-	const saveToStore= () =>{
-		characters.forEach(char => {
-			addCharacter(char)
+	const saveToStore = () => {
+		characters.forEach((char) => {
+			addCharacter(char);
 		});
-	}
+	};
 </script>
 
 <div class=" mx-auto">
-	<h1 class="text-4xl font-bold mb-6">Character Parser</h1>
+	<h1 class="mb-6 text-4xl font-bold">Character Parser</h1>
 
-	<div class="max-w-2xl card bg-base-200 shadow-xl">
+	<div class="card max-w-2xl bg-base-200 shadow-xl">
 		<div class="card-body">
 			<h2 class="card-title">Import Characters</h2>
-			<p class="text-sm opacity-75 mb-4">
-				Upload XML files containing D&D 5e characters
-			</p>
+			<p class="mb-4 text-sm opacity-75">Upload XML files containing D&D 5e characters</p>
 
 			<div class="form-control">
 				<label class="label" for="xml-file-input">
@@ -76,7 +74,7 @@
 					multiple
 					onchange={handleFileUpload}
 					disabled={loading}
-					class="file-input file-input-bordered w-full"
+					class="file-input-bordered file-input w-full"
 				/>
 			</div>
 
@@ -88,10 +86,10 @@
 			{/if}
 
 			{#if error}
-				<div class="alert alert-error mt-4">
+				<div class="mt-4 alert alert-error">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="stroke-current shrink-0 h-6 w-6"
+						class="h-6 w-6 shrink-0 stroke-current"
 						fill="none"
 						viewBox="0 0 24 24"
 					>
@@ -111,17 +109,17 @@
 		</div>
 	</div>
 
-				{#if characters.length > 0}
-				<div class="mt-4 p-3 bg-base-100 rounded">
-					<p class="font-semibold">{characters.length} character(s) loaded</p>
-					<ul class="list-inside mt-2 flex flex-col gap-2">
-						{#each characters as char, idx}
-							<li>
-							<CharacterDisplay character={char}></CharacterDisplay>
-							</li>
-						{/each}
-						<button class="btn" onclick={saveToStore}>Save</button>
-					</ul>
-				</div>
-			{/if}
+	{#if characters.length > 0}
+		<div class="mt-4 rounded bg-base-100 p-3">
+			<p class="font-semibold">{characters.length} character(s) loaded</p>
+			<ul class="mt-2 flex list-inside flex-col gap-2">
+				{#each characters as char, idx}
+					<li>
+						<CharacterDisplay character={char}></CharacterDisplay>
+					</li>
+				{/each}
+				<button class="btn" onclick={saveToStore}>Save</button>
+			</ul>
+		</div>
+	{/if}
 </div>

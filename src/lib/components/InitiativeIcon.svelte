@@ -12,7 +12,8 @@
 		const val = modifier ?? 0;
 		return val > 0 ? `+${val}` : `${val}`;
 	});
-
 </script>
 
-<p class="bg-blue-500  text-white font-bold p-2 rounded mw-10 flex items-center justify-center"> {displayValue} </p>
+<p class="mw-10 flex items-center justify-center rounded bg-blue-500 p-2 font-bold text-white">
+	{displayValue}
+</p>

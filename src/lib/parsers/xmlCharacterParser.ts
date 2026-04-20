@@ -1,6 +1,6 @@
-import type { ParsedCharacter } from "../models/character.model";
+import type { PartyMember } from '../models/character.model';
 
-export function parseXMLCharacter(xmlString: string): ParsedCharacter[] {
+export function parseXMLCharacter(xmlString: string): PartyMember[] {
 	const parser = new DOMParser();
 	const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
 
@@ -9,7 +9,7 @@ export function parseXMLCharacter(xmlString: string): ParsedCharacter[] {
 		throw new Error('Invalid XML file');
 	}
 
-	const characters: ParsedCharacter[] = [];
+	const characters: PartyMember[] = [];
 	const pcElements = xmlDoc.getElementsByTagName('pc');
 
 	for (let i = 0; i < pcElements.length; i++) {
@@ -21,7 +21,7 @@ export function parseXMLCharacter(xmlString: string): ParsedCharacter[] {
 	return characters;
 }
 
-function parseCharacterElement(element: Element): ParsedCharacter {
+function parseCharacterElement(element: Element): PartyMember {
 	const getText = (tag: string, defaultValue?: string): string => {
 		const el = element.querySelector(tag);
 		return el?.textContent?.trim() || defaultValue || '';
@@ -44,10 +44,10 @@ function parseCharacterElement(element: Element): ParsedCharacter {
 
 	const actions = parseActions(element);
 
-	const hpString = getText('hp'); 
-	const character: ParsedCharacter = {
+	const hpString = getText('hp');
+	const character: PartyMember = {
 		name: getText('label'),
-		class: getText('name').replaceAll("[2024]", "").trim(),
+		class: getText('name').replaceAll('[2024]', '').trim(),
 		level: getNumber('level'),
 		size: getText('size') || undefined,
 		ac: getText('ac') || undefined,
@@ -72,9 +72,9 @@ function parseCharacterElement(element: Element): ParsedCharacter {
 	return character;
 }
 
-function parseActions(element: Element): ParsedCharacter['actions'] {
+function parseActions(element: Element): PartyMember['actions'] {
 	const actionElements = element.querySelectorAll('action');
-	const actions: ParsedCharacter['actions'] = [];
+	const actions: PartyMember['actions'] = [];
 
 	actionElements.forEach((action) => {
 		const name = action.querySelector('name')?.textContent?.trim() || '';
@@ -91,7 +91,7 @@ function parseActions(element: Element): ParsedCharacter['actions'] {
 	return actions;
 }
 
-export function validateCharacter(character: ParsedCharacter): string[] {
+export function validateCharacter(character: PartyMember): string[] {
 	const errors: string[] = [];
 
 	if (!character.name) {

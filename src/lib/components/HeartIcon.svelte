@@ -10,7 +10,8 @@
 		}
 		return HP ?? 0;
 	});
-
 </script>
 
-<p class="bg-red-500 text-white font-bold p-2 rounded flex items-center justify-center"> {displayValue} </p>
+<p class="flex items-center justify-center rounded bg-red-500 p-2 font-bold text-white">
+	{displayValue}
+</p>

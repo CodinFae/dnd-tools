@@ -1,6 +1,6 @@
-import type { character } from '../models/character.model';
+import type { Character } from '../models/character.model';
 
-export let characterStore = $state<character[]>([]);
+export let characterStore = $state<Character[]>([]);
 
 export const removeCharacter = (name: string) => {
 	const filtered = characterStore.filter((a) => a.name !== name);
@@ -9,6 +9,6 @@ export const removeCharacter = (name: string) => {
 	characterStore.push(...filtered);
 };
 
-export const addCharacter = (character: character) => {
+export const addCharacter = (character: Character) => {
 	characterStore.push(character);
 };
