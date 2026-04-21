@@ -2,12 +2,27 @@
 	import { goto } from '$app/navigation';
 	import HeartIcon from '$lib/components/HeartIcon.svelte';
 	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
+	import type { Character } from '$lib/models/character.model';
 	import {
-		characterStore,
-		removeCharacter,
-		addCharacter
-	} from '$lib/stores/character.store.svelte';
+		party,
+	} from '$lib/stores/party.store.svelte';
 	import { setupFight } from '$lib/stores/fight.store.svelte';
+
+	let fightOnlyCharacters = $state<Character[]>([]);
+
+	const allCharacters = $derived([...party, ...fightOnlyCharacters]);
+
+	const removeCharacter = (name: string) => {
+		const filtered = fightOnlyCharacters.filter((a) => a.name !== name);
+
+		fightOnlyCharacters.length = 0;
+		fightOnlyCharacters.push(...filtered);
+	};
+
+	const addCharacter = (character: Character) => {
+		fightOnlyCharacters.push(character);
+	};
+
 
 	const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
 		if (!event.currentTarget.checkValidity()) {
@@ -27,8 +42,8 @@
 	};
 
 	const handleStartFight = async () => {
-		if (characterStore.length >= 2) {
-			setupFight(characterStore);
+		if (allCharacters.length >= 2) {
+			setupFight(allCharacters);
 			await goto('/fight');
 		}
 	};
@@ -36,7 +51,7 @@
 
 <h1 class="text-4xl">Initiative Tracker</h1>
 <ul class="list">
-	{#each characterStore as actor}
+	{#each fightOnlyCharacters as actor}
 		<li class="list-row flex flex-row items-center gap-2">
 			<span class="rounded bg-primary p-2 text-primary-content">{actor.name}</span>
 			<InitiativeIcon modifier={actor.initiativeModifier}></InitiativeIcon>
@@ -74,11 +89,11 @@
 <div class="join">
 	<button
 		class="btn join-item btn-warning"
-		onclick={() => characterStore.splice(0, characterStore.length)}>Reset</button
+		onclick={() => fightOnlyCharacters.splice(0, fightOnlyCharacters.length)}>Reset</button
 	>
 	<button
 		class="btn join-item btn-primary"
-		disabled={characterStore.length < 2}
+		disabled={allCharacters.length < 2}
 		onclick={handleStartFight}>Start</button
 	>
 </div>

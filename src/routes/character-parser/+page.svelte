@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
 	import CharacterDisplay from './character-display.svelte';
-	import { addCharacter } from '$lib/stores/character.store.svelte';
+	import { addCharacter } from '$lib/stores/party.store.svelte';
 	import type { PartyMember } from '$lib/models/character.model';
 
 	let characters: PartyMember[] = $state([]);

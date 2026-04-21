@@ -3,7 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 
 	import { page } from '$app/state';
-	import { characterStore } from '$lib/stores/character.store.svelte';
+	import { party } from '$lib/stores/party.store.svelte';
 	import { fightStore } from '$lib/stores/fight.store.svelte';
 
 	let { children } = $props();
@@ -27,7 +27,7 @@
 		href="/character-parser"
 		class:btn-active={isActive('/character-parser')}>Character parser</a
 	>
-	<span>Party {characterStore.length}</span>
+	<span>Party {party.length}</span>
 	{#if fightStore.phase != 'unset'}
 		<a class="btn text-xl btn-ghost" href="/fight"
 			>Turn {fightStore.currentTurn}, {fightStore.fighters.length} fighter left</a
