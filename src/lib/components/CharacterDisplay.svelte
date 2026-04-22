@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { calculateAttributeModifier, feetToSquare } from '$lib/utils/dnd.utils';
+	import { formatModifier } from '$lib/utils/format.utils';
 	import type { PartyMember } from '../models/character.model';
 
 	interface Props {
@@ -7,43 +9,15 @@
 
 	let { character }: Props = $props();
 
-	/**
-	 * Calculate D&D ability modifier from an ability score
-	 * Standard formula: (score - 10) / 2, rounded down
-	 */
-	function calculateModifier(score: number | undefined): number {
-		if (score === undefined) return 0;
-		return Math.floor((score - 10) / 2);
-	}
 
-	/**
-	 * Format a modifier with + prefix for positive values
-	 */
-	function formatModifier(mod: number): string {
-		if (mod > 0) return `+${mod}`;
-		if (mod < 0) return `${mod}`;
-		return '0';
-	}
 
-	/**
-	 * Extract movement squares from speed string (e.g., "30 ft." => 6 squares)
-	 * Assumes 5 feet per square (standard D&D 5e grid)
-	 */
-	function parseMovementSquares(speedStr: string | undefined): number | null {
-		if (!speedStr) return null;
-		const match = speedStr.match(/(\d+)/);
-		if (!match) return null;
-		const feet = parseInt(match[1], 10);
-		return Math.floor(feet / 5);
-	}
-
-	const strMod = $derived(calculateModifier(character.stats.str));
-	const dexMod = $derived(calculateModifier(character.stats.dex));
-	const conMod = $derived(calculateModifier(character.stats.con));
-	const intMod = $derived(calculateModifier(character.stats.int));
-	const wisMod = $derived(calculateModifier(character.stats.wis));
-	const chaMod = $derived(calculateModifier(character.stats.cha));
-	const movementSquares = $derived(parseMovementSquares(character.speed));
+	const strMod = $derived(calculateAttributeModifier(character.stats.str));
+	const dexMod = $derived(calculateAttributeModifier(character.stats.dex));
+	const conMod = $derived(calculateAttributeModifier(character.stats.con));
+	const intMod = $derived(calculateAttributeModifier(character.stats.int));
+	const wisMod = $derived(calculateAttributeModifier(character.stats.wis));
+	const chaMod = $derived(calculateAttributeModifier(character.stats.cha));
+	const movementSquares = $derived(feetToSquare(character.speed));
 </script>
 
 <!-- Character display using DaisyUI -->

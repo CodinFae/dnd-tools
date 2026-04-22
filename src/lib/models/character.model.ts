@@ -12,8 +12,6 @@ export interface Fighter extends Character {
 
 export interface PartyMember extends Character {
 	class: string;
-	level?: number;
-	size?: string;
 	ac?: string;
 	currentHp: number;
 	speed?: string;
