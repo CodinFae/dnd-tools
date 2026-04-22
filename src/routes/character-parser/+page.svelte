@@ -22,7 +22,6 @@
 		try {
 			const allCharacters: PartyMember[] = [];
 
-			console.debug("Loading", files)
 			for (let i = 0; i < files.length; i++) {
 				const file = files[i];
 				const xmlString = await file.text();

@@ -12,9 +12,9 @@ export interface Fighter extends Character {
 
 export interface PartyMember extends Character {
 	class: string;
-	ac?: string;
+	ac: number;
 	currentHp: number;
-	speed?: string;
+	speedFt: number;
 	stats: {
 		str?: number;
 		dex?: number;

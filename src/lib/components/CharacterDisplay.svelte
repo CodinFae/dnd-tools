@@ -17,7 +17,7 @@
 	const intMod = $derived(calculateAttributeModifier(character.stats.int));
 	const wisMod = $derived(calculateAttributeModifier(character.stats.wis));
 	const chaMod = $derived(calculateAttributeModifier(character.stats.cha));
-	const movementSquares = $derived(feetToSquare(character.speed));
+	const movementSquares = $derived(feetToSquare(character.speedFt));
 </script>
 
 <!-- Character display using DaisyUI -->

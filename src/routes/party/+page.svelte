@@ -21,6 +21,9 @@
                     HP
                 </th>
                 <th>
+                    AC
+                </th>
+                <th>
                     Speed
                 </th>
                 <th>
@@ -45,7 +48,10 @@
                 {partyMember.hp}
             </td>
             <td>
-                {feetToSquare(partyMember.speed)} sq
+                {partyMember.ac}
+            </td>
+            <td>
+                {feetToSquare(partyMember.speedFt)} sq
             </td>
             <td class="flex flex-row gap-2">
                 <span>STR{formatAttributeModifier(partyMember.stats.str)}</span>
