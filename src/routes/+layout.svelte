@@ -2,16 +2,13 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
-	import { page } from '$app/state';
 	import { partyStore } from '$lib/stores/party.store.svelte';
 	import { fightStore } from '$lib/stores/fight.store.svelte';
 	import type { Fight } from '$lib/models/fight.models';
+	import NavLink from '$lib/components/NavLink.svelte';
 
 	let { children } = $props();
 
-	const isActive = (path: string) => {
-		return page.url.pathname === path || page.url.pathname.startsWith(path + '/');
-	};
 
 	const generateFightText  = (fight: Fight) : string => {
 		switch(fight.phase){
@@ -24,30 +21,17 @@
 				return "Fight ready"
 		}
 	}
+
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 <nav class="navbar bg-base-100 shadow-sm">
-	<a class="btn text-xl btn-ghost" href="/" class:btn-active={isActive('/')}>Home</a>
-	<a
-		class="btn text-xl btn-ghost"
-		href="/fight-config"
-		class:btn-active={isActive('/fight-config')}>Fight config</a
-	>
-
-		<a class="btn text-xl btn-ghost" href="/fight" class:btn-active={isActive("/fight")}
-			>{generateFightText(fightStore)}</a
-		>
-	<a
-		class="btn text-xl btn-ghost"
-		href="/character-parser"
-		class:btn-active={isActive('/character-parser')}>Character parser</a
-	>
-	<a class="btn text-xl btn-ghost"
-		href="/party"
-		class:btn-active={isActive('/party')}>Party of {partyStore.length}</a>
-
+	<NavLink route="/" text="Home"></NavLink>
+	<NavLink route="/fight-config" text="Fight Config"></NavLink>
+	<NavLink route="/fight" text={generateFightText(fightStore)}></NavLink>
+	<NavLink route="/character-parser" text="Character parser"></NavLink>
+	<NavLink route="/party" text="Party of {partyStore.length}"></NavLink>
 	
 </nav>
 <div class="p-4">
