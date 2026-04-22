@@ -4,13 +4,13 @@
 	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
 	import type { Character } from '$lib/models/character.model';
 	import {
-		party,
+		partyStore,
 	} from '$lib/stores/party.store.svelte';
 	import { setupFight } from '$lib/stores/fight.store.svelte';
 
 	let fightOnlyCharacters = $state<Character[]>([]);
 
-	const allCharacters = $derived([...party, ...fightOnlyCharacters]);
+	const allCharacters = $derived([...partyStore, ...fightOnlyCharacters]);
 
 	const removeCharacter = (name: string) => {
 		const filtered = fightOnlyCharacters.filter((a) => a.name !== name);

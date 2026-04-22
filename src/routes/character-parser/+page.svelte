@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
-	import CharacterDisplay from './character-display.svelte';
+	import CharacterDisplay from '$lib/components/CharacterDisplay.svelte';
 	import { addCharacter } from '$lib/stores/party.store.svelte';
 	import type { PartyMember } from '$lib/models/character.model';
 

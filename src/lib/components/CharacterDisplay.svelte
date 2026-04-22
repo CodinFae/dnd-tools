@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PartyMember } from '../../lib/models/character.model';
+	import type { PartyMember } from '../models/character.model';
 
 	interface Props {
 		character: PartyMember;
