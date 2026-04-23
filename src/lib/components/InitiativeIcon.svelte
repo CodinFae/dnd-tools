@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatModifier } from "$lib/utils/format.utils";
+	import { formatModifier } from '$lib/utils/format.utils';
 
 	let { rolled, modifier } = $props<{
 		rolled?: number;

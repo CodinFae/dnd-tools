@@ -48,7 +48,7 @@ function parseCharacterElement(element: Element): PartyMember {
 	const character: PartyMember = {
 		name: getText('label'),
 		class: getText('name').replaceAll('[2024]', '').trim(),
-		ac: parseInt(getText('ac').slice(0,2)),
+		ac: parseInt(getText('ac').slice(0, 2)),
 		hp: parseInt(hpString.split('/')[1]),
 		currentHp: parseInt(hpString.split('/')[0]),
 		speedFt: parseInt(getText('speed')),
@@ -87,14 +87,6 @@ function parseActions(element: Element): PartyMember['actions'] {
 	});
 
 	return actions;
-}
-
-const parseSpeed = (speedStat : string) : number => {
-		if (!speedStat) return 0;
-		const match = speedStat.match(/(\d+)/);
-		if (!match) return 0;
-		const feet = parseFloat(match[1]);
-		return feet;
 }
 
 export function validateCharacter(character: PartyMember): string[] {

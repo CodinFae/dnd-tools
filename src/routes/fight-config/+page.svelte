@@ -3,9 +3,7 @@
 	import HeartIcon from '$lib/components/HeartIcon.svelte';
 	import InitiativeIcon from '$lib/components/InitiativeIcon.svelte';
 	import type { Character } from '$lib/models/character.model';
-	import {
-		partyStore,
-	} from '$lib/stores/party.store.svelte';
+	import { partyStore } from '$lib/stores/party.store.svelte';
 	import { setupFight } from '$lib/stores/fight.store.svelte';
 
 	let fightOnlyCharacters = $state<Character[]>([]);
@@ -22,7 +20,6 @@
 	const addCharacter = (character: Character) => {
 		fightOnlyCharacters.push(character);
 	};
-
 
 	const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
 		if (!event.currentTarget.checkValidity()) {

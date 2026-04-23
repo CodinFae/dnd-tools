@@ -9,19 +9,17 @@
 
 	let { children } = $props();
 
-
-	const generateFightText  = (fight: Fight) : string => {
-		switch(fight.phase){
+	const generateFightText = (fight: Fight): string => {
+		switch (fight.phase) {
 			case 'unset':
-				return "No fight ready";
+				return 'No fight ready';
 			case 'started':
 			case 'paused':
-				return `Turn ${fightStore.currentTurn}, ${fightStore.fighters.length} fighter left`
+				return `Turn ${fightStore.currentTurn}, ${fightStore.fighters.length} fighter left`;
 			case 'ready':
-				return "Fight ready"
+				return 'Fight ready';
 		}
-	}
-
+	};
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
@@ -30,9 +28,7 @@
 	<NavLink route="/" text="Home"></NavLink>
 	<NavLink route="/fight-config" text="Fight Config"></NavLink>
 	<NavLink route="/fight" text={generateFightText(fightStore)}></NavLink>
-	<NavLink route="/character-parser" text="Character parser"></NavLink>
 	<NavLink route="/party" text="Party of {partyStore.length}"></NavLink>
-	
 </nav>
 <div class="p-4">
 	{@render children()}
