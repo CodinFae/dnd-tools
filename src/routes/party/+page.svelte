@@ -89,30 +89,27 @@
 
 <div class="overflow-auto">
 	<div class="mb-2">
-			<h2 class="card-title">Import Characters</h2>
-			<p class="mb-4 text-sm opacity-75">Upload XML files containing D&D 5e characters</p>
+		<h2 class="card-title">Import Characters</h2>
+		<p class="mb-4 text-sm opacity-75">Upload XML files containing D&D 5e characters</p>
 
-			<div class="form-control">
-				<label class="label" for="xml-file-input">
-					<span class="label-text">Select XML Files</span>
-				</label>
-				<input
-					id="xml-file-input"
-					type="file"
-					accept=".xml"
-					multiple
-					onchange={handleFileUpload}
-					disabled={loading}
-					class="file-input-bordered file-input w-full"
-				/>
+		<div class="form-control">
+			<input
+				id="xml-file-input"
+				type="file"
+				accept=".xml"
+				multiple
+				onchange={handleFileUpload}
+				disabled={loading}
+				class="file-input-bordered file-input w-full"
+			/>
+		</div>
+
+		{#if loading}
+			<div class="mt-4 flex items-center gap-2">
+				<span class="loading loading-spinner"></span>
+				<span>Parsing files...</span>
 			</div>
-
-			{#if loading}
-				<div class="mt-4 flex items-center gap-2">
-					<span class="loading loading-spinner"></span>
-					<span>Parsing files...</span>
-				</div>
-			{/if}
+		{/if}
 	</div>
 	<div class="flex flex-row justify-items-center align-middle">
 		<p>{selected.length} selected</p>

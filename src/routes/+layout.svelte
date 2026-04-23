@@ -26,7 +26,6 @@
 
 <nav class="navbar bg-base-100 shadow-sm">
 	<NavLink route="/" text="Home"></NavLink>
-	<NavLink route="/fight-config" text="Fight Config"></NavLink>
 	<NavLink route="/fight" text={generateFightText(fightStore)}></NavLink>
 	<NavLink route="/party" text="Party of {partyStore.length}"></NavLink>
 </nav>
