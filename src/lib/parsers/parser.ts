@@ -32,10 +32,19 @@ const toArray = <T>(value: T | T[] | undefined): T[] => {
 };
 
 const parseHp = (hp: string) => {
-	const [current, max] = hp.split('/').map((v) => Number(v.trim()));
+	console.info('Parsing HP:', hp);
+	// Format is current/max (2D20)
+	// First select via regex to ensure we have the correct format, then split and parse numbers
+	const hpMatch = hp.match(/((\d+)\/(\d+))/);
+	if (!hpMatch) {
+		console.warn('HP format is invalid, defaulting to 0/1:', hp);
+		return { currentHp: 0, hp: 1 };
+	}
+	console.debug('HP regex match:', hpMatch);
+	console.info('Parsed HP values:', { current: Number(hpMatch[2]), max: Number(hpMatch[3]) });
 	return {
-		currentHp: Number.isFinite(current) ? current : 0,
-		hp: Number.isFinite(max) ? max : 1
+		currentHp: Number.isFinite(Number(hpMatch[2])) ? Number(hpMatch[2]) : 0,
+		hp: Number.isFinite(Number(hpMatch[3])) ? Number(hpMatch[3]) : 1
 	};
 };
 
