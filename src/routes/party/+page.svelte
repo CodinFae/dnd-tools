@@ -31,12 +31,11 @@
 		});
 	};
 
-	import { parseXMLCharacter, validateCharacter } from '$lib/parsers/xmlCharacterParser';
 	import { addCharacter } from '$lib/stores/party.store.svelte';
 	import type { PartyMember } from '$lib/models/character.model';
+	import { parseXML, transformCharacter } from '$lib/parsers/parser';
 
 	let characters: PartyMember[] = $state([]);
-	let error: string | null = $state(null);
 	let loading = $state(false);
 
 	async function handleFileUpload(event: Event) {
@@ -46,7 +45,6 @@
 		if (!files || files.length === 0) return;
 
 		loading = true;
-		error = null;
 		characters = [];
 
 		try {
@@ -55,25 +53,16 @@
 			for (let i = 0; i < files.length; i++) {
 				const file = files[i];
 				const xmlString = await file.text();
-				const parsed = parseXMLCharacter(xmlString);
+				const rawCharacters = parseXML(xmlString);
 
-				// Validate each character
-				const validationErrors = parsed.flatMap((char, idx) => {
-					const errors = validateCharacter(char);
-					return errors.map((e) => `${file.name} - Character ${idx + 1}: ${e}`);
-				});
-
-				if (validationErrors.length > 0) {
-					error = (error ? error + '\n' : '') + validationErrors.join('\n');
-				}
-
-				allCharacters.push(...parsed);
+				const parsedCharacters = rawCharacters.map(transformCharacter);
+				allCharacters.push(...parsedCharacters);
 			}
 
 			characters = allCharacters;
 			saveToStore();
 		} catch (err) {
-			error = err instanceof Error ? err.message : 'Failed to parse XML files';
+			console.error('Error parsing files:', err);
 		} finally {
 			loading = false;
 			target.value = '';

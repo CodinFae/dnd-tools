@@ -10,25 +10,34 @@ export interface Fighter extends Character {
 	rolled: number;
 }
 
-export interface PartyMember extends Character {
-	class: string;
-	ac: number;
-	currentHp: number;
-	speedFt: number;
-	stats: {
-		str?: number;
-		dex?: number;
-		con?: number;
-		int?: number;
-		wis?: number;
-		cha?: number;
-	};
-	saves?: string[];
-	skills?: string[];
-	passive?: number;
-	actions?: {
-		name: string;
-		text: string;
-		attack?: string;
-	}[];
-}
+import { z } from 'zod';
+
+export const PartyMemberSchema = z.object({
+	name: z.string().min(1),
+	class: z.string().min(1),
+	ac: z.number().int().min(0),
+	hp: z.number().int().min(1),
+	currentHp: z.number().int().min(0),
+	speedFt: z.number().int().min(0),
+	initiativeModifier: z.number().int(),
+	stats: z.object({
+		str: z.number(),
+		dex: z.number(),
+		con: z.number(),
+		int: z.number(),
+		wis: z.number(),
+		cha: z.number()
+	}),
+	saves: z.array(z.string()),
+	skills: z.array(z.string()),
+	passive: z.number(),
+	actions: z.array(
+		z.object({
+			name: z.string(),
+			text: z.string(),
+			attack: z.string().optional()
+		})
+	)
+});
+
+export type PartyMember = z.infer<typeof PartyMemberSchema>;
